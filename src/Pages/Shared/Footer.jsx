@@ -3,7 +3,7 @@ const Footer = () => {
     <footer>
       <div className="footer p-10 mt-10 bg-neutral text-neutral-content">
         <div>
-          <svg  
+          <svg
             width="50"
             height="50"
             viewBox="0 0 24 24"
