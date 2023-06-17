@@ -10,11 +10,11 @@ const Fetured = () => {
       >
         <div>
           <SecTitle headding={"Fetured Item"} subHeadding={"Check it Out"} />
-          <div className="flex justify-center items-center pt-8 pb-20 px-32 text-white">
+          <div className="flex justify-center items-center flex-wrap md:flex-nowrap pt-8 pb-20 md:px-32 px-12 text-white">
             <div>
               <img src={img} alt="" />
             </div>
-            <div className="ml-10">
+            <div className="md:ml-10">
               <p>Aug 10 , 2002</p>
               <p className="uppercase">Wherw Can I get some?</p>
               <p>
