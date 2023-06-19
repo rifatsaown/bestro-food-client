@@ -1,16 +1,16 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const navItem = (
     <>
       <li>
-        <Link to="/">Home</Link>
+        <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <Link to="/menu">Our Menu</Link>
+        <NavLink to="/menu">Our Menu</NavLink>
       </li>
       <li>
-        <a>Item 3</a>
+        <NavLink to="/order">Order</NavLink>
       </li>
     </>
   );
@@ -48,7 +48,7 @@ const Navbar = () => {
           </a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{navItem}</ul>
+          <ul className="menu text-white menu-horizontal px-1">{navItem}</ul>
         </div>
         <div className="navbar-end">
           <a className="btn btn-accent">Button</a>
