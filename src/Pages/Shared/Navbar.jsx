@@ -10,14 +10,17 @@ const Navbar = () => {
         <NavLink to="/menu">Our Menu</NavLink>
       </li>
       <li>
-        <NavLink to="/order">Order</NavLink>
+        <NavLink to="/order/salad">Order</NavLink>
+      </li>
+      <li>
+        <NavLink to="/login">Login</NavLink>
       </li>
     </>
   );
 
   return (
     <>
-      <div className="navbar fixed z-10 backdrop-blur-md rounded-lg max-w-screen-2xl">
+      <div className="navbar fixed z-10 bg-gray-800/30 backdrop-blur-md rounded-lg max-w-screen-2xl">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
