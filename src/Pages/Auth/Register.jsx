@@ -1,12 +1,14 @@
-import { updateProfile } from "firebase/auth";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Register = () => {
   // get createUser function from AuthContext
-  const {user, createUser } = useContext(AuthContext);
+  const {user, createUser , updateProfile } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   // react-hook-form
   const {
     register,
@@ -14,21 +16,23 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = ({ email, name, pass }) => {
-    console.log(email, name, pass);
+  const onSubmit = ({ email, name, pass , photo }) => {
     createUser(email, pass)
-      .then((result) => {
-        profileName(result.user, name);
+      .then(() => {
+        updateProfile(name,photo);
+        navigate("/", { replace: true });
       })
       .catch((error) => {
-        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Register Failed",
+          text: error.message,
+        });
       });
   };
 
   // update name
-  const profileName = (currentUser, name) => {
-    updateProfile(currentUser, { displayName: name });
-  };
+  
 
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -63,6 +67,18 @@ const Register = () => {
             </div>
             <div className="form-control">
               <label className="label">
+                <span className="label-text">Photo URL</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Photo URL"
+                {...register("photo", { required: true })}
+                className="input input-bordered"
+              />
+              {errors.photo && <span className="text-red-500">This field is required</span>}
+            </div>
+            <div className="form-control">
+              <label className="label">
                 <span className="label-text">Email</span>
               </label>
               <input
@@ -83,13 +99,13 @@ const Register = () => {
                 placeholder="Password"
                 className="input input-bordered"
               />
-              {errors.pass && <span className="text-red-500">Password Must be atlast 6 Carrecter</span>}
+              {errors.pass?.type === 'required' && <span className="text-red-500">This field is required</span>}
+              {errors.pass?.type === 'minLength' && <span className="text-red-500">Password Must be atlast 6 Carrecter</span>}
             </div>
             <button className="btn mt-2">Register Now</button>
           </form>
           <p className="text-center p-4">
             <small>
-              {" "}
               <Link to="/login">Already Have an Account?</Link>
             </small>
           </p>
