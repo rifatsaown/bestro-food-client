@@ -11,7 +11,7 @@ const Login = () => {
   const captchaRef = useRef(null);
   const [disabled, setDisabled] = useState(true);
 
-  const { signIn } = useContext(AuthContext);
+  const { user,signIn } = useContext(AuthContext);
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -42,16 +42,23 @@ const Login = () => {
 
   return (
     <div className="hero min-h-screen bg-base-200">
-      <div className="hero-content flex-col justify-between lg:flex-row">
+      <div className="hero-content w-full flex-col justify-between lg:flex-row">
         <div className="text-center lg:text-left md:w-1/2">
           <h1 className="text-5xl font-bold">Login now!</h1>
           <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
+           {
+              user ? (
+                <span>
+                  {user.displayName && <span>Welcome {user.displayName}</span>}
+                </span>
+              ) : (
+                <span>Please Login</span>
+              )
+              
+           }
           </p>
         </div>
-        <div className="card md:w-1/2 max-w-sm shadow-2xl bg-base-100">
+        <div className="card md:w-1/2 max-w-lg shadow-2xl bg-base-100">
           <form onSubmit={handleLogin} className="card-body">
             <div className="form-control">
               <label className="label">

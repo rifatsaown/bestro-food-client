@@ -1,24 +1,30 @@
 import { updateProfile } from "firebase/auth";
 import { useContext } from "react";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 
 const Register = () => {
   // get createUser function from AuthContext
-  const { createUser } = useContext(AuthContext);
+  const {user, createUser } = useContext(AuthContext);
+  // react-hook-form
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  // handle register
-  const handleRegister = (e) => {
-    e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    const name = e.target.name.value;
-    // create user with email and password and then update name
-    createUser(email, password).then((res) => {
-        console.log(res.user);
-      profileName(res.user, name);
-    });
+  const onSubmit = ({ email, name, pass }) => {
+    console.log(email, name, pass);
+    createUser(email, pass)
+      .then((result) => {
+        profileName(result.user, name);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+
   // update name
   const profileName = (currentUser, name) => {
     updateProfile(currentUser, { displayName: name });
@@ -26,17 +32,23 @@ const Register = () => {
 
   return (
     <div className="hero min-h-screen bg-base-200">
-      <div className="hero-content flex-col justify-between lg:flex-row">
+      <div className="hero-content w-full flex-col justify-between lg:flex-row">
         <div className="text-center lg:text-left md:w-1/2">
           <h1 className="text-5xl font-bold">Sign Up now!</h1>
           <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
+            {
+              user ? (
+                <span>
+                  {user.displayName && <span>Welcome {user.displayName}</span>}
+                </span>
+              ) : (
+                <span>You are not logged in</span>
+              )
+            }
           </p>
         </div>
-        <div className="card md:w-1/2 max-w-sm shadow-2xl bg-base-100">
-          <form onSubmit={handleRegister} className="card-body">
+        <div className="card md:w-1/2 max-w-lg shadow-2xl bg-base-100">
+          <form onSubmit={handleSubmit(onSubmit)} className="card-body">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Name</span>
@@ -44,20 +56,22 @@ const Register = () => {
               <input
                 type="text"
                 placeholder="Name"
-                name="name"
+                {...register("name", { required: true })}
                 className="input input-bordered"
               />
+              {errors.name && <span className="text-red-500">This field is required</span>}
             </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
               </label>
               <input
-                type="text"
+                type="email"
                 placeholder="Email"
-                name="email"
+                {...register("email", { required: true })}
                 className="input input-bordered"
               />
+              {errors.email && <span className="text-red-500">This field is required</span>}
             </div>
             <div className="form-control">
               <label className="label">
@@ -65,10 +79,11 @@ const Register = () => {
               </label>
               <input
                 type="password"
-                name="password"
+                {...register("pass", { required: true , minLength: 6 })}
                 placeholder="Password"
                 className="input input-bordered"
               />
+              {errors.pass && <span className="text-red-500">Password Must be atlast 6 Carrecter</span>}
             </div>
             <button className="btn mt-2">Register Now</button>
           </form>
