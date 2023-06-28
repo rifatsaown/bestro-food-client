@@ -5,6 +5,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import FoodCard from "../../Components/FoodCard";
 import "./style.css";
 
+// TODO Pagination have to be done
+
 const OrderTab = ({ items }) => {
   const pagination = {
     clickable: true,
