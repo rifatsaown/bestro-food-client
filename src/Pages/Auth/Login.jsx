@@ -105,7 +105,8 @@ const Login = () => {
               </div>
             </div>
             <div className="form-control mt-6">
-              <button disabled={disabled} className="btn ">
+              <button className="btn ">
+              {/* <button disabled={disabled} className="btn "> */}
                 Login
               </button>
             </div>
