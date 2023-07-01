@@ -3,10 +3,11 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 import Swal from "sweetalert2";
+import SocialAuth from "./SocialAuth";
 
 const Register = () => {
   // get createUser function from AuthContext
-  const {user, createUser , updateProfile } = useContext(AuthContext);
+  const {user, createUser , updateProfilename } = useContext(AuthContext);
   const navigate = useNavigate();
 
   // react-hook-form
@@ -19,10 +20,33 @@ const Register = () => {
   const onSubmit = ({ email, name, pass , photo }) => {
     createUser(email, pass)
       .then(() => {
-        updateProfile(name,photo);
-        navigate("/", { replace: true });
+        updateProfilename(name,photo).then(() => {
+
+          fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                name: name,
+                email: email,
+                })
+                }).then(res => res.json())
+                .then((data) => {
+                 if (data.insertedId) {
+                  Swal.fire({
+                    icon: "success",
+                    title: "Register Success",
+                    text: "You have successfully registered",
+                  });
+                  navigate("/", { replace: true });
+                 }
+                })
+                .catch(err => console.error(err))
+        });
       })
       .catch((error) => {
+        console.error(error);
         Swal.fire({
           icon: "error",
           title: "Register Failed",
@@ -103,6 +127,8 @@ const Register = () => {
               {errors.pass?.type === 'minLength' && <span className="text-red-500">Password Must be atlast 6 Carrecter</span>}
             </div>
             <button className="btn mt-2">Register Now</button>
+          <div className="divider"></div>
+            <SocialAuth>Register</SocialAuth>
           </form>
           <p className="text-center p-4">
             <small>

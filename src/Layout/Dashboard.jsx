@@ -1,10 +1,10 @@
-import { BiMenuAltRight } from "react-icons/bi";
 import {
   FaCalendarAlt,
   FaHome,
   FaShoppingCart,
   FaWallet,
 } from "react-icons/fa";
+import { BiMenuAltRight } from "react-icons/bi";
 import { IoBagCheckOutline } from "react-icons/io5";
 import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../Hooks/useCart";
@@ -29,7 +29,7 @@ const Dashboard = () => {
         <ul className="menu p-4 w-80 h-full bg-base-200 ">
           {/* Sidebar content here */}
           <li>
-            <NavLink to="/dashboard/home" >
+            <NavLink to="/dashboard/home">
               <FaHome /> User Home
             </NavLink>
           </li>
@@ -46,7 +46,9 @@ const Dashboard = () => {
           <li>
             <NavLink to="/dashboard/mycart">
               <FaShoppingCart /> My Cart
-              <span className="badge badge-sm indicator-item">{cart.length || 0}</span>
+              <span className="badge badge-sm indicator-item">
+                {cart.length || 0}
+              </span>
             </NavLink>
           </li>
           <div className="divider"></div>
