@@ -5,6 +5,7 @@ import useAxiosSecure from "./useAxiosSecure";
 
 const useAdmin = () => {
   const { user } = useContext(AuthContext);
+  // use axios and tanstack/react-query to get admin status
   const [axiosSecure] = useAxiosSecure();
   const { data: isAdmin, isLoading: isAdminLoading } = useQuery(
     ["isAdmin", user?.email],
