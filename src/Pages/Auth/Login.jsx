@@ -18,7 +18,6 @@ const Login = () => {
 
   const from = location.state?.from?.pathname || "/";
 
-
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
@@ -34,6 +33,8 @@ const Login = () => {
           title: "Login Success",
           text: "You are logged in!",
         });
+      })
+      .then(() => {
         navigate(from, { replace: true });
       })
       .catch((err) => {
@@ -107,7 +108,7 @@ const Login = () => {
             </div>
             <div className="form-control mt-6">
               <button className="btn ">
-              {/* <button disabled={disabled} className="btn "> */}
+                {/* <button disabled={disabled} className="btn "> */}
                 Login
               </button>
             </div>
@@ -119,7 +120,6 @@ const Login = () => {
               New Here? <Link to="/register">Create an Account?</Link>
             </small>
           </p>
-
         </div>
       </div>
     </div>

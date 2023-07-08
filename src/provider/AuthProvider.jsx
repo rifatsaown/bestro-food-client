@@ -1,4 +1,14 @@
-import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import axios from "axios";
+import {
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+  updateProfile,
+} from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import app from "../firebase/firebase.config";
 
@@ -26,27 +36,42 @@ const AuthProvider = ({ children }) => {
   };
 
   // update name and photo
-  const updateProfilename = ( name, photo) => {
-    return updateProfile(auth.currentUser, { displayName: name, photoURL: photo });
+  const updateProfilename = (name, photo) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photo,
+    });
   };
 
   // sign in user
-    const signIn = (email, password) => {
-        setLoading(true);
-        return signInWithEmailAndPassword(auth, email, password);
-    };
+  const signIn = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
 
-    // sign out user
-    const logOut = () => {
-        setLoading(true);
-        return signOut(auth);
-    };
+  // sign out user
+  const logOut = () => {
+    setLoading(true);
+    return signOut(auth);
+  };
 
   // Listen for auth state changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
-      setLoading(false);
+      // get and set jwt token in local storage with axios
+      const userEmail = user?.email;
+      if (user) {
+        axios
+          .post("http://localhost:5000/jwt", { email:  userEmail})
+          .then((res) => {
+            localStorage.setItem("JWT-token", res.data.token);
+            setLoading(false);
+          });
+      }else{
+        localStorage.removeItem("JWT-token");
+      }
+      
     });
     // Unsubscribe to the listener when unmounting
     return () => unsubscribe();

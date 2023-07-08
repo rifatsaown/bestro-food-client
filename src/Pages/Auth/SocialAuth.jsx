@@ -28,8 +28,8 @@ const SocialAuth = ({ children }) => {
           .then(() => {
             Swal.fire({
               icon: "success",
-              title: "Register Success",
-              text: "You have successfully registered",
+              title: `${children} Success`,
+              text: `Welcome ${user.displayName}`,
             });
             navigate(from, { replace: true });
           });
