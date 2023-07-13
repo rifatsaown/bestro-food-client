@@ -7,7 +7,7 @@ import useAxiosSecure from "./useAxiosSecure";
 // This hooks is created with the help of tanstack/react-query
 
 const useCart = () => {
-  const { user ,loading} = useContext(AuthContext);
+  const { user ,loading } = useContext(AuthContext);
   const [axiosSecure] = useAxiosSecure();
 
   const { refetch, data: cart = [] } = useQuery({
@@ -15,6 +15,7 @@ const useCart = () => {
     enabled: !loading,
     queryFn: async () => {
       if (user) {
+        // call this after 1 second
         const res = await axiosSecure(
           `http://localhost:5000/carts?email=${user?.email}`
         );

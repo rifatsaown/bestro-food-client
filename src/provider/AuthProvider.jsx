@@ -69,9 +69,9 @@ const AuthProvider = ({ children }) => {
             setLoading(false);
           });
       }else{
+        setLoading(false);
         localStorage.removeItem("JWT-token");
       }
-      
     });
     // Unsubscribe to the listener when unmounting
     return () => unsubscribe();
