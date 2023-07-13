@@ -63,12 +63,12 @@ const AuthProvider = ({ children }) => {
       const userEmail = user?.email;
       if (user) {
         axios
-          .post("http://localhost:5000/jwt", { email:  userEmail})
+          .post("http://localhost:5000/jwt", { email: userEmail })
           .then((res) => {
             localStorage.setItem("JWT-token", res.data.token);
             setLoading(false);
           });
-      }else{
+      } else {
         setLoading(false);
         localStorage.removeItem("JWT-token");
       }

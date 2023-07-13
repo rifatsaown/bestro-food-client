@@ -1,11 +1,13 @@
 import { Suspense } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import Navbar from "../Pages/Shared/Navbar";
 import Footer from "../Pages/Shared/Footer";
+import Navbar from "../Pages/Shared/Navbar";
 
 const Main = () => {
   const location = useLocation();
-  const notShowHeaderFooter = location.pathname.includes("/login") || location.pathname.includes("/register");
+  const notShowHeaderFooter =
+    location.pathname.includes("/login") ||
+    location.pathname.includes("/register");
 
   return (
     <div>

@@ -13,7 +13,10 @@ import SecTitle from "../../Components/SecTitle";
 const Categoty = () => {
   return (
     <section>
-      <SecTitle headding={'Order Online'} subHeadding={'From 11.00am to 10.00pm'}/>
+      <SecTitle
+        headding={"Order Online"}
+        subHeadding={"From 11.00am to 10.00pm"}
+      />
       <Swiper
         slidesPerView={4}
         spaceBetween={30}

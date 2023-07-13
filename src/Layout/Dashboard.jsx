@@ -10,14 +10,14 @@ import {
 } from "react-icons/fa";
 import { IoBagCheckOutline } from "react-icons/io5";
 import { NavLink, Outlet } from "react-router-dom";
-import useCart from "../Hooks/useCart";
 import useAdmin from "../Hooks/useAdmin";
+import useCart from "../Hooks/useCart";
 
 const Dashboard = () => {
   const { cart } = useCart();
 
   const { isAdmin } = useAdmin();
-  
+
   // const isAdmin = true;
 
   return (

@@ -1,4 +1,5 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
+// import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   LoadCanvasTemplate,
@@ -10,7 +11,8 @@ import { AuthContext } from "../../provider/AuthProvider";
 import SocialAuth from "./SocialAuth";
 
 const Login = () => {
-  const [disabled, setDisabled] = useState(true);
+  // TODO : captcha validation enable when deployed
+  // const [disabled, setDisabled] = useState(true);
 
   const { user, signIn } = useContext(AuthContext);
   const location = useLocation();
@@ -49,9 +51,9 @@ const Login = () => {
   const handlevalidateCaptcha = (e) => {
     const captcha = e.target.value;
     if (validateCaptcha(captcha)) {
-      setDisabled(false);
+      // setDisabled(false);
     } else {
-      setDisabled(true);
+      // setDisabled(true);
     }
   };
 

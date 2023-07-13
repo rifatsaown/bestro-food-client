@@ -1,15 +1,15 @@
 import { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { AuthContext } from "../provider/AuthProvider";
 import useCart from "../Hooks/useCart";
+import { AuthContext } from "../provider/AuthProvider";
 
 const FoodCard = ({ item }) => {
   const { name, price, image, recipe, _id } = item;
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
-  const {refetch} = useCart();
+  const { refetch } = useCart();
 
   const handleAddToCart = () => {
     if (user) {

@@ -17,7 +17,9 @@ const AddItem = () => {
     const fromData = new FormData();
     fromData.append("image", data.image[0]);
     Axios.post(img_hosting_url, fromData).then((res) => {
-      console.log(res);
+      if(res.data.status === 200){
+        console.log(res.data.data.display_url);
+      }
     });
   };
 
@@ -89,7 +91,9 @@ const AddItem = () => {
               <span className="label-text">Item Image*</span>
             </label>
             <input
+              //only image type file upload
               type="file"
+              accept="image/*"
               {...register("image", { required: true })}
               className="file-input file-input-bordered w-full "
             />

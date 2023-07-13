@@ -25,7 +25,8 @@ const Testimonial = () => {
           {reviews.map((review, index) => (
             <SwiperSlide key={index}>
               <div className="flex flex-col items-center md:m-24 m-10">
-                <Rating className="-ml-32"
+                <Rating
+                  className="-ml-32"
                   style={{ maxWidth: 30 }}
                   value={review.rating}
                   readOnly

@@ -5,7 +5,7 @@ import useCart from "../../Hooks/useCart";
 
 const MyCart = () => {
   const { cart, refetch } = useCart();
-  
+
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -35,8 +35,8 @@ const MyCart = () => {
     <>
       {cart.status === "error" ? (
         <>
-        Please Login Again to see your cart <br />
-        -- Your Token has been expired --
+          Please Login Again to see your cart <br />
+          -- Your Token has been expired --
         </>
       ) : (
         <>

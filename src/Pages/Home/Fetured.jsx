@@ -23,7 +23,9 @@ const Fetured = () => {
                 nesciunt cupiditate nam suscipit adipisci eius dicta accusantium
                 deserunt quisquam a maxime excepturi ex!
               </p>
-              <button className="btn btn-accent btn-outline border-0 border-b-4 mt-4">Order now</button>
+              <button className="btn btn-accent btn-outline border-0 border-b-4 mt-4">
+                Order now
+              </button>
             </div>
           </div>
         </div>
