@@ -1,24 +1,54 @@
 import Axios from "axios";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 import SecTitle from "../../Components/SecTitle";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const img_hosting_token = import.meta.env.VITE_Image_Upload_Key;
 
 const AddItem = () => {
-  const {
-    register,
-    handleSubmit,
-    // formState: { errors },
-  } = useForm();
+  const [axiosSecure] = useAxiosSecure();
+  const { register, handleSubmit ,reset } = useForm();
   const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
-  
+
   const onSubmit = (data) => {
     const fromData = new FormData();
     fromData.append("image", data.image[0]);
+    // image Upload to imgbb
     Axios.post(img_hosting_url, fromData).then((res) => {
-      if(res.data.status === 200){
-        console.log(res.data.data.display_url);
+      if (res.data.status === 200) {
+        const itemData = {
+          name: data.name,
+          category: data.category,
+          price: parseFloat(data.price),
+          recipe: data.recipe,
+          image: res.data.data.display_url,
+        };
+        // add item to database
+        axiosSecure
+          .post("/menu", itemData)
+          .then((res) => {
+            if (res.data.insertedId) {
+              reset();
+              Swal.fire({
+                icon: "success",
+                title: "Item Added Successfully",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: { err } || "Something went wrong!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          });
       }
     });
   };
@@ -56,12 +86,12 @@ const AddItem = () => {
                 className="select select-bordered"
               >
                 <option disabled>Pick One</option>
-                <option>Pizza</option>
-                <option>Soup</option>
-                <option>Salad</option>
-                <option>Dessert</option>
-                <option>Desi</option>
-                <option>Drinks</option>
+                <option>pizza</option>
+                <option>soup</option>
+                <option>salad</option>
+                <option>dessert</option>
+                <option>desi</option>
+                <option>drinks</option>
               </select>
             </div>
             <div className="form-control w-full ml-4">

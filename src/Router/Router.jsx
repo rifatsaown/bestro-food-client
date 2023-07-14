@@ -11,6 +11,7 @@ import Menu from "../Pages/Menu/Menu";
 import Order from "../Pages/Order/Order";
 import AdminRoute from "./AdminRouter";
 import PrivateRoute from "./PrivateRoute";
+import ManageItems from "../Pages/Dashboard/ManageItems";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,14 @@ const router = createBrowserRouter([
           </AdminRoute>
         ),
       },
+      {
+        path: "manageItem",
+        element: (
+          <AdminRoute>
+            <ManageItems />
+          </AdminRoute>
+        ),
+      }
     ],
   },
 ]);
