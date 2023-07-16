@@ -12,6 +12,7 @@ import Order from "../Pages/Order/Order";
 import AdminRoute from "./AdminRouter";
 import PrivateRoute from "./PrivateRoute";
 import ManageItems from "../Pages/Dashboard/ManageItems";
+import Payment from "../Pages/Dashboard/Payment/Payment";
 
 const router = createBrowserRouter([
   {
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
             <ManageItems />
           </AdminRoute>
         ),
+      },
+      {
+        path: "payment",
+        element: <Payment/>,
       }
     ],
   },
