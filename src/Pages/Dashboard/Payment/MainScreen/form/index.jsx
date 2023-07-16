@@ -61,7 +61,6 @@ export default function CForm({
     onUpdateState("isCardFlipped", false);
   };
 
-
   return (
     <div className="max-w-2xl m-auto w-full ">
       <div className="-mb-36">{children}</div>
@@ -161,7 +160,11 @@ export default function CForm({
             />
           </div>
         </div>
-        <div className="text-center"><button className="btn w-full btn-outline">Pay Now</button></div>
+        <input
+          type="submit"
+          value="pay now"
+          className="text-center btn w-full btn-outline"
+        />
       </form>
     </div>
   );

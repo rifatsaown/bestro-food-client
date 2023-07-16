@@ -1,5 +1,4 @@
 import MainScreen from './MainScreen/index.jsx';
-// import './Payment.scss';
 
 const Payment = () => {
   return (
