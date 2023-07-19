@@ -48,7 +48,7 @@ const Card = ({
             }
         }
 
-        return 'visa'; // default type
+        return 'mastercard'; // default type
     };
 
     const useCardType = useMemo(() => {
