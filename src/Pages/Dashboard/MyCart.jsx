@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useCart from "../../Hooks/useCart";
+import { Link } from "react-router-dom";
 
 const MyCart = () => {
   const { cart, refetch } = useCart();
@@ -51,7 +52,7 @@ const MyCart = () => {
                 Total Price: $
                 {cart.reduce((acc, item) => acc + item.price, 0).toFixed(2)}
               </h3>
-              <button className="btn btn-accent btn-sm">Pay</button>
+              <Link to='/dashboard/payment' className="btn btn-accent btn-sm">Pay</Link>
             </div>
 
             <div className="overflow-x-auto">

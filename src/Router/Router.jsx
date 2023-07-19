@@ -58,8 +58,12 @@ const router = createBrowserRouter([
         element: <MyCart />,
       },
       {
+        path: "payment",
+        element: <Payment/>,
+      },
+      {
         path: "allusers",
-        element: <AllUsers />,
+        element: <AdminRoute><AllUsers /></AdminRoute>,
       },
       {
         path: "addItem",
@@ -76,10 +80,6 @@ const router = createBrowserRouter([
             <ManageItems />
           </AdminRoute>
         ),
-      },
-      {
-        path: "payment",
-        element: <Payment/>,
       }
     ],
   },
