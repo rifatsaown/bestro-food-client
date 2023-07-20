@@ -1,8 +1,8 @@
 import { Helmet } from "react-helmet-async";
 import { FaTrashAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useCart from "../../Hooks/useCart";
-import { Link } from "react-router-dom";
 
 const MyCart = () => {
   const { cart, refetch } = useCart();
@@ -18,7 +18,7 @@ const MyCart = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/carts/${id}`, {
+        fetch(`https://bistro-boss-server-snowy-three.vercel.app/carts/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -52,7 +52,9 @@ const MyCart = () => {
                 Total Price: $
                 {cart.reduce((acc, item) => acc + item.price, 0).toFixed(2)}
               </h3>
-              <Link to='/dashboard/payment' className="btn btn-accent btn-sm">Pay</Link>
+              <Link to="/dashboard/payment" className="btn btn-accent btn-sm">
+                Pay
+              </Link>
             </div>
 
             <div className="overflow-x-auto">

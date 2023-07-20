@@ -21,7 +21,7 @@ const Register = () => {
     createUser(email, pass)
       .then(() => {
         updateProfilename(name, photo).then(() => {
-          fetch("http://localhost:5000/users", {
+          fetch("https://bistro-boss-server-snowy-three.vercel.app/users", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

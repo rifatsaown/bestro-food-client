@@ -14,7 +14,7 @@ const SocialAuth = ({ children }) => {
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then(({ user }) => {
-        fetch("http://localhost:5000/users", {
+        fetch("https://bistro-boss-server-snowy-three.vercel.app/users", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

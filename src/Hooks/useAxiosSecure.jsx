@@ -4,14 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://bistro-boss-server-snowy-three.vercel.app",
 });
 
 const useAxiosSecure = () => {
   const { logOut } = useContext(AuthContext);
   const navigate = useNavigate();
-
- 
 
   useEffect(() => {
     axiosSecure.interceptors.request.use((config) => {
