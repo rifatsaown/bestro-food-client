@@ -5,7 +5,10 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { AuthContext } from "../../../provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const ELEMENT_OPTIONS = {
   style: {
@@ -23,12 +26,26 @@ const ELEMENT_OPTIONS = {
   },
 };
 
-export default function PaymentForm() {
+export default function PaymentForm({ cart ,refetch,price }) {
+  const { user } = useContext(AuthContext);
   const elements = useElements();
   const stripe = useStripe();
+  const [axiosSecure] = useAxiosSecure();
   const [errorMessage, setErrorMessage] = useState(null);
-  const [paymentMethod, setPaymentMethod] = useState(null);
+  const [clientSecret, setClientSecret] = useState("");
+  const [trxId, setTrxId] = useState("");
+  const [processing, setProcessing] = useState(false);
 
+
+  useEffect(() => {
+    if(price <= 0) return;
+    axiosSecure.post("/create-payment-intent", { price }).then((res) => {
+      setClientSecret(res.data.clientSecret);
+    });
+    
+  }, [axiosSecure, price]);
+
+//--------------- Submit For Payment -----------------------//
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -45,24 +62,72 @@ export default function PaymentForm() {
     }
 
     const payload = await stripe.createPaymentMethod({
-      type: 'card',
+      type: "card",
       card,
     });
 
     if (payload.error) {
-      console.log('[error]', payload.error);
+      console.log("[error]", payload.error);
       setErrorMessage(payload.error.message);
-      setPaymentMethod(null);
+      // setPaymentMethod(null);
     } else {
-      console.log('[PaymentMethod]', payload.paymentMethod);
-      setPaymentMethod(payload.paymentMethod);
+      console.log("[PaymentMethod]", payload.paymentMethod);
+      // setPaymentMethod(payload.paymentMethod);
       setErrorMessage(null);
     }
+    setProcessing(true);
+    const { error, paymentIntent } = await stripe.confirmCardPayment(
+      clientSecret,
+      {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: user?.displayName || "Anonymous",
+            email: user?.email || "Anonymous",
+          },
+        },
+      }
+    );
+    if (error) {
+      setErrorMessage(error.message);
+    }
+    setProcessing(false);
+    if (paymentIntent?.status === "succeeded") {
+      setTrxId(paymentIntent?.id);
+      const payment = {
+        email: user?.email,
+        price : price,
+        date: new Date().toLocaleString(),
+        trxId: paymentIntent?.id,
+        quantity: cart.length,
+        itemsName : cart.map((item) => item.name),
+        orderStatus: "Service Pending",
+        cartItems : cart.map((item) => item._id),
+        menuItems : cart.map((item) => item.itemId),
+      };
+      axiosSecure.post("/payment", payment)
+        .then((res) => {
+          if (res.data.result.insertedId) {
+            refetch();
+            Swal.fire({
+              icon: "success",
+              title: "Payment Successfull",
+              text: "Your Payment is Successfull",
+            });
+          }
+        });
+    }
   };
+// --------------- Submit For Payment -----------------------//
 
   return (
     <div className="">
-      <form onSubmit={handleSubmit} className=" bg-base-300 md:py-14 py-5 px-5 md:px-14 rounded-xl space-y-4">
+      
+      <form
+        onSubmit={handleSubmit}
+        className=" bg-base-300 md:py-14 py-5 px-5 md:px-14 rounded-xl space-y-4"
+      >
+        <p className="text-center font-bold text-3xl">Please Pay ${price}</p>
         <div>
           <label htmlFor="cardNumber" className="block mb-1 font-medium">
             Card Number
@@ -107,11 +172,13 @@ export default function PaymentForm() {
           </div>
         </div>
         {errorMessage && <div className="text-red-600">{errorMessage}</div>}
-      {paymentMethod && <div>Got PaymentMethod: {paymentMethod.id}</div>}
+        {trxId && (
+          <div className="text-green-600">Got Payment And TrXId: {trxId}</div>
+        )}
 
         <input
           type="submit"
-          disabled={!stripe}
+          disabled={!stripe || !clientSecret || processing}
           value="pay now"
           className="text-center btn w-full btn-outline"
         />

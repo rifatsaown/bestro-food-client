@@ -1,7 +1,5 @@
 import { BiMenuAltRight } from "react-icons/bi";
 import {
-  FaBook,
-  FaCalendarAlt,
   FaHome,
   FaShoppingCart,
   FaUsers,
@@ -38,11 +36,11 @@ const Dashboard = () => {
           {/* Sidebar content here */}
           {isAdmin ? (
             <>
-              <li>
+              {/* <li>
                 <NavLink to="/dashboard/home">
                   <FaHome /> Admin Home
                 </NavLink>
-              </li>
+              </li> */}
               <li>
                 <NavLink to="/dashboard/addItem">
                   <FaUtensils /> Add Item
@@ -52,9 +50,9 @@ const Dashboard = () => {
                 <NavLink to="/dashboard/manageItem">
                   <FaWallet /> Manage Item
                 </NavLink>
-                <NavLink to="/dashboard/history">
+                {/* <NavLink to="/dashboard/history">
                   <FaBook /> Manage Bookings
-                </NavLink>
+                </NavLink> */}
                 <NavLink to="/dashboard/allusers">
                   <FaUsers /> All Users
                 </NavLink>
@@ -62,7 +60,7 @@ const Dashboard = () => {
             </>
           ) : (
             <>
-              <li>
+              {/* <li>
                 <NavLink to="/dashboard/home">
                   <FaHome /> User Home
                 </NavLink>
@@ -76,7 +74,7 @@ const Dashboard = () => {
                 <NavLink to="/dashboard/history">
                   <FaWallet /> Payment History
                 </NavLink>
-              </li>
+              </li> */}
               <li>
                 <NavLink to="/dashboard/mycart">
                   <FaShoppingCart /> My Cart
