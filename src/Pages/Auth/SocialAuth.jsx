@@ -14,11 +14,11 @@ const SocialAuth = ({ children }) => {
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then(({ user }) => {
-        fetch("http://localhost:5000/users", {
+        fetch("https://bestro-food-ts-server.onrender.com/users", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "authorization": `bearer ${localStorage.getItem("JWT-token")}`,
+            authorization: `bearer ${localStorage.getItem("JWT-token")}`,
           },
           body: JSON.stringify({
             name: user.displayName,

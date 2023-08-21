@@ -63,7 +63,7 @@ const AuthProvider = ({ children }) => {
       const userEmail = user?.email;
       if (user) {
         axios
-          .post("http://localhost:5000/jwt", {
+          .post("https://bestro-food-ts-server.onrender.com/jwt", {
             email: userEmail,
           })
           .then((res) => {

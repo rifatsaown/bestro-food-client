@@ -10,7 +10,7 @@ import SecTitle from "../../Components/SecTitle";
 const Testimonial = () => {
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/reviews")
+    fetch("https://bestro-food-ts-server.onrender.com/reviews")
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);

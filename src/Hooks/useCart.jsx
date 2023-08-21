@@ -17,7 +17,7 @@ const useCart = () => {
       if (user) {
         // call this after 1 second
         const res = await axiosSecure(
-          `http://localhost:5000/carts?email=${user?.email}`
+          `https://bestro-food-ts-server.onrender.com/carts?email=${user?.email}`
         );
         return res.data;
       }

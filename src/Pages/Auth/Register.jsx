@@ -21,7 +21,7 @@ const Register = () => {
     createUser(email, pass)
       .then(() => {
         updateProfilename(name, photo).then(() => {
-          fetch("http://localhost:5000/users", {
+          fetch("https://bestro-food-ts-server.onrender.com/users", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

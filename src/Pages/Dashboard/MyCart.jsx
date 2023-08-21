@@ -18,8 +18,12 @@ const MyCart = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/carts/${id}`, {
+        fetch(`https://bestro-food-ts-server.onrender.com/carts/${id}`, {
           method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `bearer ${localStorage.getItem("JWT-token")}`,
+          },
         })
           .then((res) => res.json())
           .then((data) => {

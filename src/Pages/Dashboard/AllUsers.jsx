@@ -12,9 +12,12 @@ const AllUsers = () => {
   });
 
   const makeAdmin = (user) => {
-    fetch(`http://localhost:5000/users/admin/${user._id}`, {
-      method: "PATCH",
-    })
+    fetch(
+      `https://bestro-food-ts-server.onrender.com/users/admin/${user._id}`,
+      {
+        method: "PATCH",
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
@@ -39,11 +42,11 @@ const AllUsers = () => {
       cancelButtonText: "No, keep it.",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/users/${user._id}`, {
+        fetch(`https://bestro-food-ts-server.onrender.com/users/${user._id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            "authorization" : `bearer ${localStorage.getItem("JWT-token")}`
+            authorization: `bearer ${localStorage.getItem("JWT-token")}`,
           },
         })
           .then((res) => res.json())
