@@ -1,5 +1,6 @@
 import { BiMenuAltRight } from "react-icons/bi";
 import {
+  FaBook,
   FaHome,
   FaShoppingCart,
   FaUsers,
@@ -50,9 +51,9 @@ const Dashboard = () => {
                 <NavLink to="/dashboard/manageItem">
                   <FaWallet /> Manage Item
                 </NavLink>
-                {/* <NavLink to="/dashboard/history">
-                  <FaBook /> Manage Bookings
-                </NavLink> */}
+                <NavLink to="/dashboard/manage-payment">
+                  <FaBook /> Manage Payment
+                </NavLink>
                 <NavLink to="/dashboard/allusers">
                   <FaUsers /> All Users
                 </NavLink>
@@ -70,11 +71,12 @@ const Dashboard = () => {
                   <FaCalendarAlt /> Resarvation
                 </NavLink>
               </li>
-              <li>
-                <NavLink to="/dashboard/history">
+               */}
+               <li>
+                <NavLink to="/dashboard/payment-history">
                   <FaWallet /> Payment History
                 </NavLink>
-              </li> */}
+              </li>
               <li>
                 <NavLink to="/dashboard/mycart">
                   <FaShoppingCart /> My Cart

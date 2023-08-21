@@ -5,14 +5,16 @@ import Login from "../Pages/Auth/Login";
 import Register from "../Pages/Auth/Register";
 import AddItem from "../Pages/Dashboard/AddItem";
 import AllUsers from "../Pages/Dashboard/AllUsers";
+import ManageItems from "../Pages/Dashboard/ManageItems";
 import MyCart from "../Pages/Dashboard/MyCart";
+import Payment from "../Pages/Dashboard/Payment/Payment";
+import PaymentHistory from "../Pages/Dashboard/PaymentHistory";
 import Home from "../Pages/Home/Home";
 import Menu from "../Pages/Menu/Menu";
 import Order from "../Pages/Order/Order";
 import AdminRoute from "./AdminRouter";
 import PrivateRoute from "./PrivateRoute";
-import ManageItems from "../Pages/Dashboard/ManageItems";
-import Payment from "../Pages/Dashboard/Payment/Payment";
+import ManagePayment from "../Pages/Dashboard/ManagePayment";
 
 const router = createBrowserRouter([
   {
@@ -59,11 +61,19 @@ const router = createBrowserRouter([
       },
       {
         path: "payment",
-        element: <Payment/>,
+        element: <Payment />,
+      },
+      {
+        path: "payment-history",
+        element: <PaymentHistory />,
       },
       {
         path: "allusers",
-        element: <AdminRoute><AllUsers /></AdminRoute>,
+        element: (
+          <AdminRoute>
+            <AllUsers />
+          </AdminRoute>
+        ),
       },
       {
         path: "addItem",
@@ -74,13 +84,21 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "manage-payment",
+        element: (
+          <AdminRoute>
+            <ManagePayment />
+          </AdminRoute>
+        ),
+      },
+      {
         path: "manageItem",
         element: (
           <AdminRoute>
             <ManageItems />
           </AdminRoute>
         ),
-      }
+      },
     ],
   },
 ]);

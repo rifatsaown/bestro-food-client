@@ -17,7 +17,7 @@ const useCart = () => {
       if (user) {
         // call this after 1 second
         const res = await axiosSecure(
-          `https://bistro-boss-server-snowy-three.vercel.app/carts?email=${user?.email}`
+          `http://localhost:5000/carts?email=${user?.email}`
         );
         return res.data;
       }

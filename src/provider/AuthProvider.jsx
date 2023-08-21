@@ -63,7 +63,7 @@ const AuthProvider = ({ children }) => {
       const userEmail = user?.email;
       if (user) {
         axios
-          .post("https://bistro-boss-server-snowy-three.vercel.app/jwt", {
+          .post("http://localhost:5000/jwt", {
             email: userEmail,
           })
           .then((res) => {

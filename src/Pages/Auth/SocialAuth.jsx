@@ -14,10 +14,11 @@ const SocialAuth = ({ children }) => {
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then(({ user }) => {
-        fetch("https://bistro-boss-server-snowy-three.vercel.app/users", {
+        fetch("http://localhost:5000/users", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "authorization": `bearer ${localStorage.getItem("JWT-token")}`,
           },
           body: JSON.stringify({
             name: user.displayName,
