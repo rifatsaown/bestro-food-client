@@ -16,7 +16,11 @@ const AllUsers = () => {
       `https://bestro-food-ts-server.onrender.com/users/admin/${user._id}`,
       {
         method: "PATCH",
-      }
+      },
+        headers: {
+            "Content-Type": "application/json",
+            authorization: `bearer ${localStorage.getItem("JWT-token")}`,
+          },
     )
       .then((res) => res.json())
       .then((data) => {
